@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StringAI — Project Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white: #fff; --maple: #E8C99A; --cedar: #C68642; --rosewood: #7B3F1E;
+    --walnut: #3D2010; --ebony: #1A0F08; --border: #EDE5D8; --surface: #FAF8F5;
+  }
+  body { background: var(--white); font-family: "DM Sans", sans-serif; color: var(--ebony); -webkit-font-smoothing: antialiased; max-width: 760px; margin: 0 auto; padding: 56px 40px 80px; }
+
+  /* Header */
+  .header { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 48px; padding-bottom: 24px; border-bottom: 1px solid var(--border); }
+  .logo { font-family: "DM Serif Display", serif; font-size: 28px; color: var(--walnut); }
+  .logo em { font-style: italic; color: var(--cedar); }
+  .header-meta { text-align: right; }
+  .meta-label { font-size: 10px; font-weight: 500; color: var(--cedar); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+  .meta-value { font-size: 13px; color: #aaa; font-weight: 300; line-height: 1.6; }
+
+  /* Section */
+  .section { margin-bottom: 40px; }
+  .section-label { font-size: 10px; font-weight: 500; color: var(--cedar); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 14px; display: flex; align-items: center; gap: 10px; }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  /* Product desc */
+  .product-desc { font-family: "DM Serif Display", serif; font-size: 22px; color: var(--walnut); line-height: 1.4; font-weight: 400; margin-bottom: 12px; }
+  .product-desc em { font-style: italic; color: var(--cedar); }
+  .product-sub { font-size: 14px; color: #888; font-weight: 300; line-height: 1.7; }
+
+  /* Adaptation pills */
+  .axis-row { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 16px; }
+  .axis-pill { border: 1px solid var(--border); border-radius: 8px; padding: 10px 14px; flex: 1; min-width: 180px; }
+  .axis-name { font-size: 11px; font-weight: 500; color: var(--cedar); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 5px; }
+  .axis-values { font-size: 13px; color: var(--walnut); font-weight: 300; }
+
+  /* Personas */
+  .personas { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  .persona { background: var(--surface); border: 1px solid var(--border); border-radius: 10px; padding: 14px 16px; }
+  .persona-name { font-size: 13px; font-weight: 500; color: var(--walnut); margin-bottom: 4px; }
+  .persona-desc { font-size: 12px; color: #888; font-weight: 300; line-height: 1.5; }
+
+  /* Features */
+  .features { display: flex; flex-direction: column; gap: 8px; }
+  .feature { display: flex; gap: 14px; align-items: flex-start; padding: 12px 14px; border: 1px solid var(--border); border-radius: 10px; }
+  .feature.main { border-color: var(--cedar); background: #FDF7F0; }
+  .feature-icon { font-size: 18px; flex-shrink: 0; margin-top: 1px; }
+  .feature-body { flex: 1; }
+  .feature-name { font-size: 13px; font-weight: 500; color: var(--walnut); margin-bottom: 2px; }
+  .feature-name .badge { font-size: 9px; font-weight: 500; color: var(--cedar); text-transform: uppercase; letter-spacing: 0.6px; border: 1px solid var(--cedar); border-radius: 4px; padding: 1px 5px; margin-left: 6px; vertical-align: middle; }
+  .feature-desc { font-size: 12px; color: #888; font-weight: 300; line-height: 1.5; }
+
+  /* Deliverables */
+  .deliverables { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .deliverable { display: flex; align-items: center; gap: 10px; padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; }
+  .del-status { font-size: 14px; flex-shrink: 0; }
+  .del-name { font-size: 13px; color: var(--walnut); font-weight: 400; }
+  .del-sub { font-size: 11px; color: #aaa; font-weight: 300; }
+
+  /* Links */
+  .links { display: flex; flex-direction: column; gap: 8px; }
+  .link-row { display: flex; align-items: center; justify-content: space-between; padding: 12px 16px; background: var(--surface); border: 1px solid var(--border); border-radius: 10px; }
+  .link-label { font-size: 13px; font-weight: 500; color: var(--walnut); }
+  .link-url { font-size: 11px; color: var(--cedar); font-weight: 300; text-decoration: none; word-break: break-all; }
+  .link-url:hover { text-decoration: underline; }
+
+  /* Stack */
+  .stack-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .stack-tag { background: var(--surface); border: 1px solid var(--border); border-radius: 6px; padding: 6px 12px; font-size: 12px; color: var(--walnut); }
+
+  /* Footer */
+  .footer { margin-top: 48px; padding-top: 20px; border-top: 1px solid var(--border); display: flex; align-items: center; justify-content: space-between; }
+  .footer-logo { font-family: "DM Serif Display", serif; font-size: 16px; color: var(--walnut); }
+  .footer-logo em { font-style: italic; color: var(--cedar); }
+  .footer-meta { font-size: 11px; color: #bbb; font-weight: 300; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="logo">string<em>AI</em></div>
+      <div style="font-size:13px; color:#aaa; font-weight:300; margin-top:4px;">AI Guitar Tutor Platform</div>
+    </div>
+    <div class="header-meta">
+      <div class="meta-label">Project brief</div>
+      <div class="meta-value">UX Design · v1.1<br>May 2026 · In progress</div>
+    </div>
+  </div>
+
+  <!-- PRODUCT -->
+  <div class="section">
+    <div class="section-label">What we're building</div>
+    <div class="product-desc">A fully AI-powered guitar tutoring platform that adapts to <em>every</em> learner.</div>
+    <div class="product-sub">Browser-based, no download required. No human instructors — all tutoring, feedback, and content adaptation is AI-driven. The platform adjusts its language, tone, interface complexity, and feedback style in real time based on who the learner is and how they're doing.</div>
+    <div class="axis-row">
+      <div class="axis-pill">
+        <div class="axis-name">Guitar skill</div>
+        <div class="axis-values">Beginner · Intermediate · Expert</div>
+      </div>
+      <div class="axis-pill">
+        <div class="axis-name">Language</div>
+        <div class="axis-values">English · Spanish · French</div>
+      </div>
+      <div class="axis-pill">
+        <div class="axis-name">Emotional state</div>
+        <div class="axis-values">Confident · Frustrated · Plateauing · Disengaged</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAS -->
+  <div class="section">
+    <div class="section-label">Who we're designing for</div>
+    <div class="personas">
+      <div class="persona">
+        <div class="persona-name">The Absolute Beginner</div>
+        <div class="persona-desc">Never played. Needs structure, encouragement, and zero jargon. Scared of looking stupid.</div>
+      </div>
+      <div class="persona">
+        <div class="persona-name">The Lapsed Player</div>
+        <div class="persona-desc">Played years ago. Doesn't want to start from scratch. Needs a fast path back.</div>
+      </div>
+      <div class="persona">
+        <div class="persona-name">The Intermediate Grinder</div>
+        <div class="persona-desc">Can play songs but has plateaued. Needs targeted feedback and a way out of the plateau.</div>
+      </div>
+      <div class="persona">
+        <div class="persona-name">The Advanced Learner</div>
+        <div class="persona-desc">Near-professional. Needs depth, precision, and respect for their time.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FEATURES -->
+  <div class="section">
+    <div class="section-label">Core features</div>
+    <div class="features">
+      <div class="feature main">
+        <div class="feature-icon">🎙️</div>
+        <div class="feature-body">
+          <div class="feature-name">Practice Mode <span class="badge">Main feature</span></div>
+          <div class="feature-desc">Play into your microphone and get real-time AI feedback on pitch, timing, and chord change speed. Your tutor listens alongside you, plays the same guitar, and gives a personalised post-session summary.</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎓</div>
+        <div class="feature-body">
+          <div class="feature-name">AI Tutor</div>
+          <div class="feature-desc">On-demand conversational tutor, available 24/7. Adapts tone, vocabulary, and complexity to your level and emotional state.</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">🎬</div>
+        <div class="feature-body">
+          <div class="feature-name">Lesson Player</div>
+          <div class="feature-desc">Structured video curriculum by level and guitar type. Loop sections, slow down, toggle chord overlays.</div>
+        </div>
+      </div>
+      <div class="feature">
+        <div class="feature-icon">📈</div>
+        <div class="feature-body">
+          <div class="feature-name">Progress Dashboard</div>
+          <div class="feature-desc">Streak, practice time, lesson completion, and level tracking. Motivational for beginners, analytical for experts.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- DELIVERABLES -->
+  <div class="section">
+    <div class="section-label">Deliverables status</div>
+    <div class="deliverables">
+      <div class="deliverable">
+        <div class="del-status">✅</div>
+        <div><div class="del-name">Persona & Problem Definition</div><div class="del-sub">4 personas with full problem space</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-status">✅</div>
+        <div><div class="del-name">Main Features</div><div class="del-sub">All features documented</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-status">✅</div>
+        <div><div class="del-name">User Flow</div><div class="del-sub">New user, returning, emotional state flows</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-status">🔄</div>
+        <div><div class="del-name">Wireframes</div><div class="del-sub">Onboarding, Homepage, Practice Mode done</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-status">🔄</div>
+        <div><div class="del-name">Interactive Prototype</div><div class="del-sub">Full flow: Onboarding → Home → Practice</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-status">📋</div>
+        <div><div class="del-name">Remaining screens</div><div class="del-sub">Lesson Player · AI Tutor · Dashboard</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LINKS -->
+  <div class="section">
+    <div class="section-label">Prototype links</div>
+    <div class="links">
+      <div class="link-row">
+        <div class="link-label">Full prototype flow</div>
+        <a class="link-url" href="https://mihaitocitu-commits.github.io/ai-guitar-tutor/design/prototypes/onboarding_complete.html" target="_blank">onboarding_complete.html</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Homepage</div>
+        <a class="link-url" href="https://mihaitocitu-commits.github.io/ai-guitar-tutor/design/prototypes/homepage.html" target="_blank">homepage.html</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Practice Mode</div>
+        <a class="link-url" href="https://mihaitocitu-commits.github.io/ai-guitar-tutor/design/prototypes/practice_mode.html" target="_blank">practice_mode.html</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Full documentation</div>
+        <a class="link-url" href="https://www.notion.so/3708bad61bbd81929f1ff288a0cc409b" target="_blank">Notion — StringAI UX Deliverables</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK -->
+  <div class="section">
+    <div class="section-label">Technical stack</div>
+    <div class="stack-row">
+      <div class="stack-tag">React (frontend)</div>
+      <div class="stack-tag">Node.js (backend)</div>
+      <div class="stack-tag">PostgreSQL</div>
+      <div class="stack-tag">Web Audio API</div>
+      <div class="stack-tag">LLM-powered AI tutor</div>
+      <div class="stack-tag">Audio analysis engine</div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-logo">string<em>AI</em></div>
+    <div class="footer-meta">Prepared by Mihai Tocitu · May 2026 · For internal review</div>
+  </div>
+
+</body>
+</html>
