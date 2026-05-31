@@ -1,0 +1,616 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StringAI — Wireframes</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #F5F5F5;
+    --white: #FFFFFF;
+    --l1: #E0E0E0;  /* lightest fill */
+    --l2: #C8C8C8;  /* medium fill */
+    --l3: #A8A8A8;  /* dark fill */
+    --l4: #6B6B6B;  /* darkest — text labels */
+    --accent: #555;
+    --border: #D0D0D0;
+    --label: #888;
+  }
+
+  body {
+    background: var(--bg);
+    font-family: 'DM Sans', sans-serif;
+    color: var(--l4);
+    padding: 40px;
+  }
+
+  /* Doc header */
+  .doc-header { margin-bottom: 48px; }
+  .doc-title { font-family: 'DM Mono', monospace; font-size: 11px; font-weight: 500; color: var(--label); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+  .doc-name { font-size: 22px; font-weight: 500; color: var(--l4); margin-bottom: 4px; }
+  .doc-meta { font-size: 12px; color: var(--label); }
+
+  /* Screen label */
+  .screen-group { margin-bottom: 64px; }
+  .screen-label {
+    font-family: 'DM Mono', monospace; font-size: 10px; font-weight: 500;
+    letter-spacing: 1.5px; text-transform: uppercase; color: var(--label);
+    margin-bottom: 12px; display: flex; align-items: center; gap: 10px;
+  }
+  .screen-label::after { content: ''; flex: 1; height: 1px; background: var(--border); }
+
+  /* Frame */
+  .frame {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 12px rgba(0,0,0,0.06);
+  }
+
+  /* ── WIREFRAME COMPONENTS ── */
+
+  /* Generic placeholder block */
+  .ph {
+    background: var(--l1);
+    border-radius: 4px;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'DM Mono', monospace; font-size: 10px; color: var(--label);
+    letter-spacing: 0.5px;
+  }
+  .ph.dark { background: var(--l2); }
+  .ph.darker { background: var(--l3); color: var(--white); }
+  .ph.darkest { background: var(--l4); color: var(--white); }
+
+  /* Text line placeholders */
+  .text-line { height: 10px; background: var(--l2); border-radius: 3px; }
+  .text-line.lg { height: 20px; background: var(--l3); border-radius: 3px; }
+  .text-line.sm { height: 8px; background: var(--l1); border-radius: 3px; }
+  .text-line.title { height: 28px; background: var(--l3); border-radius: 3px; }
+
+  /* Button placeholder */
+  .btn-ph { height: 36px; border-radius: 6px; background: var(--l3); display: flex; align-items: center; justify-content: center; font-family: 'DM Mono', monospace; font-size: 10px; color: var(--white); letter-spacing: 0.5px; }
+  .btn-ph.outline { background: transparent; border: 1.5px solid var(--l2); color: var(--l3); }
+
+  /* Annotation */
+  .ann {
+    position: absolute;
+    font-family: 'DM Mono', monospace; font-size: 9px; color: var(--label);
+    letter-spacing: 0.3px; white-space: nowrap;
+  }
+  .ann-line {
+    position: absolute;
+    background: var(--border);
+  }
+
+  /* ── ONBOARDING STEP 1 ── */
+  .ob1-frame { padding: 0; }
+
+  /* Header */
+  .wf-header {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 14px 32px; border-bottom: 1px solid var(--border);
+  }
+  .wf-logo { width: 80px; height: 16px; background: var(--l3); border-radius: 3px; }
+  .wf-header-centre { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+  .wf-stepper-label { width: 60px; height: 8px; background: var(--l1); border-radius: 2px; }
+  .wf-segs { display: flex; gap: 4px; }
+  .wf-seg { width: 28px; height: 3px; border-radius: 2px; background: var(--l1); }
+  .wf-seg.active { background: var(--l3); }
+  .wf-header-right { display: flex; align-items: center; gap: 8px; }
+  .wf-avatar { width: 28px; height: 28px; border-radius: 50%; background: var(--l2); }
+  .wf-chip { height: 24px; border-radius: 100px; background: var(--l1); border: 1px solid var(--border); }
+  .wf-select { width: 90px; height: 28px; border-radius: 5px; background: var(--l1); border: 1px solid var(--border); }
+
+  /* Body */
+  .wf-body { padding: 32px 40px 40px; max-width: 760px; margin: 0 auto; }
+  .wf-intro { margin-bottom: 28px; }
+
+  /* Section row */
+  .wf-section { display: flex; align-items: flex-start; gap: 20px; margin-bottom: 16px; }
+  .wf-section-label { flex: 0 0 160px; padding-top: 6px; display: flex; flex-direction: column; gap: 5px; }
+  .wf-section-content { flex: 1; }
+  .wf-cards { display: flex; gap: 8px; }
+  .wf-card { flex: 1; border: 1px solid var(--border); border-radius: 8px; padding: 12px; display: flex; flex-direction: column; gap: 6px; }
+  .wf-card-img { height: 80px; border-radius: 4px; }
+  .wf-divider { border: none; border-top: 1px solid var(--border); margin: 12px 0; }
+  .wf-pills { display: flex; flex-wrap: wrap; gap: 6px; }
+  .wf-pill { height: 28px; border-radius: 100px; border: 1px solid var(--border); background: var(--white); }
+
+  /* ── HOMEPAGE ── */
+  .hp-layout { display: flex; min-height: 600px; }
+
+  /* Sidebar */
+  .wf-sidebar { width: 200px; flex-shrink: 0; background: var(--l4); padding: 20px 0; display: flex; flex-direction: column; }
+  .wf-sidebar-logo { width: 80px; height: 14px; background: var(--l2); border-radius: 3px; margin: 0 16px 24px; }
+  .wf-nav { flex: 1; padding: 0 10px; display: flex; flex-direction: column; gap: 3px; }
+  .wf-nav-item { height: 32px; border-radius: 6px; background: rgba(255,255,255,0.08); display: flex; align-items: center; padding: 0 10px; gap: 8px; }
+  .wf-nav-item.active { background: rgba(255,255,255,0.18); }
+  .wf-nav-icon { width: 14px; height: 14px; border-radius: 3px; background: rgba(255,255,255,0.3); flex-shrink: 0; }
+  .wf-nav-label { height: 8px; border-radius: 2px; background: rgba(255,255,255,0.3); flex: 1; }
+  .wf-nav-label.short { flex: 0 0 40px; }
+  .wf-sidebar-divider { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 12px 10px; }
+  .wf-metrics-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 5px; padding: 0 10px; }
+  .wf-metric { background: rgba(255,255,255,0.07); border-radius: 6px; padding: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .wf-metric-val { height: 16px; border-radius: 2px; background: rgba(255,255,255,0.25); width: 50%; }
+  .wf-metric-lbl { height: 7px; border-radius: 2px; background: rgba(255,255,255,0.12); width: 70%; }
+  .wf-sidebar-user { display: flex; align-items: center; gap: 8px; padding: 0 16px; margin-top: 12px; }
+  .wf-user-av { width: 26px; height: 26px; border-radius: 50%; background: rgba(255,255,255,0.25); flex-shrink: 0; }
+  .wf-user-name { height: 8px; border-radius: 2px; background: rgba(255,255,255,0.2); width: 50px; }
+
+  /* Main */
+  .wf-main { flex: 1; display: flex; flex-direction: column; }
+  .wf-topbar { display: flex; align-items: center; justify-content: space-between; padding: 12px 28px; border-bottom: 1px solid var(--border); }
+  .wf-topbar-left { display: flex; align-items: center; gap: 10px; }
+  .wf-topbar-right { display: flex; align-items: center; gap: 8px; }
+  .wf-content { padding: 24px 28px; }
+  .wf-top-row { display: grid; grid-template-columns: 1fr 280px; gap: 12px; margin-bottom: 20px; }
+  .wf-greeting { background: var(--l1); border-radius: 10px; padding: 18px; display: flex; gap: 14px; }
+  .wf-greeting-photo { width: 44px; height: 44px; border-radius: 50%; background: var(--l2); flex-shrink: 0; }
+  .wf-greeting-body { flex: 1; display: flex; flex-direction: column; gap: 6px; }
+  .wf-tip { background: var(--white); border: 1px solid var(--border); border-radius: 6px; padding: 8px 10px; display: flex; gap: 8px; align-items: flex-start; margin: 4px 0 8px; }
+  .wf-tip-icon { width: 12px; height: 12px; border-radius: 2px; background: var(--l2); flex-shrink: 0; margin-top: 2px; }
+  .wf-tip-text { display: flex; flex-direction: column; gap: 4px; flex: 1; }
+  .wf-practice { background: var(--l4); border-radius: 10px; padding: 18px; display: flex; flex-direction: column; justify-content: space-between; }
+  .wf-practice-top { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+  .wf-features { display: flex; flex-direction: column; gap: 5px; margin-bottom: 16px; }
+  .wf-feature { display: flex; align-items: center; gap: 6px; }
+  .wf-feature-dot { width: 5px; height: 5px; border-radius: 50%; background: rgba(255,255,255,0.3); flex-shrink: 0; }
+  .wf-feature-line { height: 7px; border-radius: 2px; background: rgba(255,255,255,0.15); }
+
+  .wf-continue { border: 1.5px solid var(--l2); border-radius: 10px; padding: 14px 18px; display: flex; align-items: center; gap: 14px; margin-bottom: 16px; }
+  .wf-continue-thumb { width: 48px; height: 48px; border-radius: 8px; background: var(--l2); flex-shrink: 0; }
+  .wf-continue-info { flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .wf-progress { display: flex; align-items: center; gap: 8px; }
+  .wf-progress-track { width: 64px; height: 4px; background: var(--l1); border-radius: 2px; }
+  .wf-progress-fill { width: 40%; height: 100%; background: var(--l3); border-radius: 2px; }
+
+  .wf-lessons { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+  .wf-lesson { border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+  .wf-lesson-thumb { height: 72px; background: var(--l1); }
+  .wf-lesson-body { padding: 10px 12px; display: flex; flex-direction: column; gap: 5px; }
+
+  /* Annotation layer */
+  .annotated { position: relative; }
+  .note {
+    position: absolute;
+    font-family: 'DM Mono', monospace; font-size: 9px;
+    color: #999; letter-spacing: 0.3px;
+    border-left: 2px solid #ddd; padding-left: 6px;
+    line-height: 1.4;
+  }
+</style>
+</head>
+<body>
+
+<div class="doc-header">
+  <div class="doc-title">StringAI · UX Wireframes</div>
+  <div class="doc-name">Onboarding + Homepage</div>
+  <div class="doc-meta">Low-fidelity · Greyscale · Layout & structure only · v1.0</div>
+</div>
+
+<!-- ══ ONBOARDING STEP 1 ══ -->
+<div class="screen-group">
+  <div class="screen-label">Onboarding — Step 1 · "Let's set you up"</div>
+  <div class="frame ob1-frame">
+
+    <!-- Header -->
+    <div class="wf-header">
+      <div class="wf-logo"></div>
+      <div class="wf-header-centre">
+        <div class="wf-stepper-label"></div>
+        <div class="wf-segs">
+          <div class="wf-seg active"></div>
+          <div class="wf-seg"></div>
+        </div>
+      </div>
+      <div class="wf-header-right">
+        <div class="wf-avatar"></div>
+        <div class="wf-chip" style="width:70px;"></div>
+        <div class="wf-chip" style="width:60px;"></div>
+        <div class="wf-select"></div>
+      </div>
+    </div>
+
+    <div class="wf-body">
+
+      <!-- Intro -->
+      <div class="wf-intro">
+        <div class="text-line title" style="width:320px; margin-bottom:10px;"></div>
+        <div class="text-line sm" style="width:280px;"></div>
+      </div>
+
+      <!-- Guitar type -->
+      <div class="wf-section">
+        <div class="wf-section-label">
+          <div class="text-line sm" style="width:40px;"></div>
+          <div class="text-line" style="width:120px;"></div>
+        </div>
+        <div class="wf-section-content">
+          <div class="wf-cards">
+            <div class="wf-card">
+              <div class="ph wf-card-img">photo</div>
+              <div class="text-line" style="width:60px;"></div>
+              <div class="text-line sm" style="width:90px;"></div>
+              <div class="text-line sm" style="width:100px;"></div>
+            </div>
+            <div class="wf-card">
+              <div class="ph wf-card-img">photo</div>
+              <div class="text-line" style="width:60px;"></div>
+              <div class="text-line sm" style="width:90px;"></div>
+              <div class="text-line sm" style="width:100px;"></div>
+            </div>
+            <div class="wf-card">
+              <div class="ph wf-card-img">photo</div>
+              <div class="text-line" style="width:60px;"></div>
+              <div class="text-line sm" style="width:90px;"></div>
+              <div class="text-line sm" style="width:100px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="wf-divider">
+
+      <!-- Skill level -->
+      <div class="wf-section">
+        <div class="wf-section-label">
+          <div class="text-line sm" style="width:40px;"></div>
+          <div class="text-line" style="width:140px;"></div>
+        </div>
+        <div class="wf-section-content">
+          <div class="wf-cards">
+            <div class="wf-card" style="padding:10px;">
+              <div class="text-line sm" style="width:20px;"></div>
+              <div class="text-line" style="width:60px;"></div>
+              <div class="text-line sm" style="width:100px;"></div>
+            </div>
+            <div class="wf-card" style="padding:10px;">
+              <div class="text-line sm" style="width:20px;"></div>
+              <div class="text-line" style="width:80px;"></div>
+              <div class="text-line sm" style="width:110px;"></div>
+            </div>
+            <div class="wf-card" style="padding:10px;">
+              <div class="text-line sm" style="width:20px;"></div>
+              <div class="text-line" style="width:50px;"></div>
+              <div class="text-line sm" style="width:100px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="wf-divider">
+
+      <!-- Goal -->
+      <div class="wf-section">
+        <div class="wf-section-label">
+          <div class="text-line sm" style="width:40px;"></div>
+          <div class="text-line" style="width:110px;"></div>
+        </div>
+        <div class="wf-section-content">
+          <div class="wf-pills">
+            <div class="wf-pill" style="width:130px;"></div>
+            <div class="wf-pill" style="width:150px;"></div>
+            <div class="wf-pill" style="width:140px;"></div>
+            <div class="wf-pill" style="width:110px;"></div>
+            <div class="wf-pill" style="width:145px;"></div>
+            <div class="wf-pill" style="width:120px;"></div>
+          </div>
+        </div>
+      </div>
+
+      <hr class="wf-divider">
+
+      <!-- CTA -->
+      <div style="display:flex; align-items:center; justify-content:space-between; margin-top:4px;">
+        <div class="text-line sm" style="width:200px;"></div>
+        <div class="btn-ph" style="width:200px;">Primary CTA</div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Annotations -->
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:16px; font-family:'DM Mono',monospace; font-size:10px; color:var(--label);">
+    <div>① <strong>Header:</strong> Logo left · Stepper centre · Chips + lang right. Chips inactive until selection made.</div>
+    <div>② <strong>Guitar cards:</strong> Photo top, name, description, genre tags. Single select. Check badge on selection.</div>
+    <div>③ <strong>Level cards:</strong> Compact — no photo. Icon, name, one-line description. Single select.</div>
+    <div>④ <strong>Goal pills:</strong> Multi-select. Wrap on overflow. Toggle on/off.</div>
+    <div>⑤ <strong>CTA:</strong> Right-aligned primary. Note left: "change anytime in settings."</div>
+    <div>⑥ <strong>Progress:</strong> Stepper updates as each section is completed.</div>
+  </div>
+</div>
+
+<!-- ══ ONBOARDING STEP 2 ══ -->
+<div class="screen-group">
+  <div class="screen-label">Onboarding — Step 2 · "Meet your tutor"</div>
+  <div class="frame">
+
+    <div class="wf-header">
+      <div class="wf-logo"></div>
+      <div class="wf-header-centre">
+        <div class="wf-stepper-label"></div>
+        <div class="wf-segs">
+          <div class="wf-seg active"></div>
+          <div class="wf-seg active"></div>
+        </div>
+      </div>
+      <div class="wf-header-right">
+        <div class="wf-avatar"></div>
+        <div class="wf-chip" style="width:80px;"></div>
+        <div class="wf-chip" style="width:70px;"></div>
+        <div class="wf-select"></div>
+      </div>
+    </div>
+
+    <div class="wf-body">
+
+      <div class="wf-intro">
+        <div class="text-line title" style="width:300px; margin-bottom:10px;"></div>
+        <div class="text-line sm" style="width:320px;"></div>
+      </div>
+
+      <!-- Vibe tabs -->
+      <div style="display:flex; gap:8px; margin-bottom:10px;">
+        <div class="ph dark" style="height:32px; width:160px; border-radius:100px; font-size:10px;">Vibe tab · active</div>
+        <div class="ph" style="height:32px; width:175px; border-radius:100px; font-size:10px;">Vibe tab</div>
+        <div class="ph" style="height:32px; width:155px; border-radius:100px; font-size:10px;">Vibe tab</div>
+      </div>
+      <div class="text-line sm" style="width:280px; margin-bottom:20px;"></div>
+
+      <!-- Tutor cards -->
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:12px; margin-bottom:24px;">
+        <div class="wf-card">
+          <div class="ph" style="height:220px; border-radius:6px; font-size:10px;">tutor photo</div>
+          <div style="padding:4px 2px; display:flex; flex-direction:column; gap:5px;">
+            <div class="text-line" style="width:80px;"></div>
+            <div class="text-line sm" style="width:100%;"></div>
+            <div class="text-line sm" style="width:90%;"></div>
+            <div class="text-line sm" style="width:80%;"></div>
+            <div style="display:flex; gap:5px; margin-top:2px;">
+              <div class="wf-pill" style="width:60px; height:20px;"></div>
+              <div class="wf-pill" style="width:50px; height:20px;"></div>
+              <div class="wf-pill" style="width:70px; height:20px;"></div>
+            </div>
+          </div>
+        </div>
+        <div class="wf-card">
+          <div class="ph" style="height:220px; border-radius:6px; font-size:10px;">tutor photo</div>
+          <div style="padding:4px 2px; display:flex; flex-direction:column; gap:5px;">
+            <div class="text-line" style="width:70px;"></div>
+            <div class="text-line sm" style="width:100%;"></div>
+            <div class="text-line sm" style="width:85%;"></div>
+            <div class="text-line sm" style="width:90%;"></div>
+            <div style="display:flex; gap:5px; margin-top:2px;">
+              <div class="wf-pill" style="width:50px; height:20px;"></div>
+              <div class="wf-pill" style="width:65px; height:20px;"></div>
+              <div class="wf-pill" style="width:55px; height:20px;"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer -->
+      <div style="display:flex; align-items:center; justify-content:space-between; padding-top:16px; border-top:1px solid var(--border);">
+        <div class="text-line sm" style="width:220px;"></div>
+        <div style="display:flex; gap:8px;">
+          <div class="btn-ph outline" style="width:90px;">← Back</div>
+          <div class="btn-ph" style="width:160px;">Start learning</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:16px; font-family:'DM Mono',monospace; font-size:10px; color:var(--label);">
+    <div>① <strong>Vibe tabs:</strong> 3 options. Active state filled dark. Switching tabs swaps the tutor cards below.</div>
+    <div>② <strong>Tutor cards:</strong> 2 per vibe. Photo dominant. Name, bio, genre tags. Single select with check badge.</div>
+    <div>③ <strong>Tutor chip:</strong> Updates in header when a tutor is selected — shows mini photo + name.</div>
+    <div>④ <strong>Back:</strong> Returns to Step 1 with all prior selections preserved.</div>
+    <div>⑤ <strong>Footer note:</strong> "You can change your tutor anytime in settings."</div>
+  </div>
+</div>
+
+<!-- ══ HOMEPAGE ══ -->
+<div class="screen-group">
+  <div class="screen-label">Homepage · Post-onboarding</div>
+  <div class="frame">
+    <div class="hp-layout">
+
+      <!-- Sidebar -->
+      <div class="wf-sidebar">
+        <div class="wf-sidebar-logo"></div>
+        <nav class="wf-nav">
+          <div class="wf-nav-item active">
+            <div class="wf-nav-icon"></div>
+            <div class="wf-nav-label short"></div>
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon"></div>
+            <div class="wf-nav-label"></div>
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon"></div>
+            <div class="wf-nav-label"></div>
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon"></div>
+            <div class="wf-nav-label short"></div>
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon"></div>
+            <div class="wf-nav-label"></div>
+          </div>
+          <div class="wf-nav-item">
+            <div class="wf-nav-icon"></div>
+            <div class="wf-nav-label"></div>
+          </div>
+        </nav>
+
+        <div class="wf-sidebar-divider"></div>
+
+        <div class="wf-metrics-grid">
+          <div class="wf-metric">
+            <div class="wf-metric-val"></div>
+            <div class="wf-metric-lbl"></div>
+          </div>
+          <div class="wf-metric">
+            <div class="wf-metric-val"></div>
+            <div class="wf-metric-lbl"></div>
+          </div>
+          <div class="wf-metric">
+            <div class="wf-metric-val"></div>
+            <div class="wf-metric-lbl"></div>
+          </div>
+          <div class="wf-metric">
+            <div class="wf-metric-val"></div>
+            <div class="wf-metric-lbl"></div>
+          </div>
+        </div>
+
+        <div class="wf-sidebar-divider"></div>
+
+        <div class="wf-sidebar-user">
+          <div class="wf-user-av"></div>
+          <div class="wf-user-name"></div>
+        </div>
+      </div>
+
+      <!-- Main -->
+      <div class="wf-main">
+
+        <!-- Topbar -->
+        <div class="wf-topbar">
+          <div class="wf-topbar-left">
+            <div class="text-line" style="width:140px;"></div>
+            <div class="ph" style="height:22px; width:90px; border-radius:100px; font-size:9px;">streak chip</div>
+          </div>
+          <div class="wf-topbar-right">
+            <div class="ph" style="height:22px; width:90px; border-radius:100px; font-size:9px;">guitar badge</div>
+            <div class="ph" style="height:22px; width:80px; border-radius:100px; font-size:9px;">tutor chip</div>
+            <div class="wf-select" style="width:80px;"></div>
+            <div class="wf-avatar"></div>
+          </div>
+        </div>
+
+        <!-- Content -->
+        <div class="wf-content">
+
+          <!-- Top row -->
+          <div class="wf-top-row">
+
+            <!-- Greeting -->
+            <div class="wf-greeting">
+              <div class="wf-greeting-photo"></div>
+              <div class="wf-greeting-body">
+                <div class="text-line sm" style="width:50px;"></div>
+                <div class="text-line" style="width:100%; margin:2px 0;"></div>
+                <div class="text-line" style="width:95%;"></div>
+                <div class="text-line" style="width:90%; margin-bottom:4px;"></div>
+                <div class="wf-tip">
+                  <div class="wf-tip-icon"></div>
+                  <div class="wf-tip-text">
+                    <div class="text-line" style="width:100%;"></div>
+                    <div class="text-line sm" style="width:80%;"></div>
+                  </div>
+                </div>
+                <div style="display:flex; gap:8px;">
+                  <div class="btn-ph" style="width:140px; height:32px; font-size:9px;">Primary CTA</div>
+                  <div class="btn-ph outline" style="width:120px; height:32px; font-size:9px;">Secondary</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Practice card -->
+            <div class="wf-practice">
+              <div class="wf-practice-top">
+                <div class="text-line sm" style="width:120px; background:rgba(255,255,255,0.2);"></div>
+                <div class="text-line lg" style="width:160px; background:rgba(255,255,255,0.35); margin:4px 0;"></div>
+                <div class="text-line sm" style="width:100%; background:rgba(255,255,255,0.15);"></div>
+                <div class="text-line sm" style="width:90%; background:rgba(255,255,255,0.15);"></div>
+              </div>
+              <div class="wf-features">
+                <div class="wf-feature">
+                  <div class="wf-feature-dot"></div>
+                  <div class="wf-feature-line" style="width:100px;"></div>
+                </div>
+                <div class="wf-feature">
+                  <div class="wf-feature-dot"></div>
+                  <div class="wf-feature-line" style="width:90px;"></div>
+                </div>
+                <div class="wf-feature">
+                  <div class="wf-feature-dot"></div>
+                  <div class="wf-feature-line" style="width:110px;"></div>
+                </div>
+              </div>
+              <div class="btn-ph" style="width:100%; background:rgba(255,255,255,0.2); font-size:9px;">🎙 Start practicing</div>
+            </div>
+
+          </div>
+
+          <!-- Continue -->
+          <div style="margin-bottom:10px;">
+            <div class="text-line sm" style="width:60px; margin-bottom:10px;"></div>
+            <div class="wf-continue">
+              <div class="wf-continue-thumb"></div>
+              <div class="wf-continue-info">
+                <div class="text-line sm" style="width:120px;"></div>
+                <div class="text-line" style="width:200px;"></div>
+                <div class="wf-progress">
+                  <div class="wf-progress-track"><div class="wf-progress-fill"></div></div>
+                  <div class="text-line sm" style="width:25px;"></div>
+                  <div class="text-line sm" style="width:60px;"></div>
+                </div>
+              </div>
+              <div class="text-line" style="width:16px;"></div>
+            </div>
+          </div>
+
+          <!-- Up next -->
+          <div class="text-line sm" style="width:50px; margin-bottom:10px;"></div>
+          <div class="wf-lessons">
+            <div class="wf-lesson">
+              <div class="wf-lesson-thumb"></div>
+              <div class="wf-lesson-body">
+                <div class="text-line sm" style="width:80px;"></div>
+                <div class="text-line" style="width:100%;"></div>
+                <div class="text-line sm" style="width:80px;"></div>
+              </div>
+            </div>
+            <div class="wf-lesson">
+              <div class="wf-lesson-thumb"></div>
+              <div class="wf-lesson-body">
+                <div class="text-line sm" style="width:80px;"></div>
+                <div class="text-line" style="width:100%;"></div>
+                <div class="text-line sm" style="width:80px;"></div>
+              </div>
+            </div>
+            <div class="wf-lesson">
+              <div class="wf-lesson-thumb"></div>
+              <div class="wf-lesson-body">
+                <div class="text-line sm" style="width:80px;"></div>
+                <div class="text-line" style="width:100%;"></div>
+                <div class="text-line sm" style="width:80px;"></div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin-top:16px; font-family:'DM Mono',monospace; font-size:10px; color:var(--label);">
+    <div>① <strong>Sidebar:</strong> Dark walnut. Nav top, 2×2 metrics grid mid, user avatar bottom. No tutor — lives in topbar.</div>
+    <div>② <strong>Topbar:</strong> Greeting + streak chip left. Guitar badge + tutor chip + lang + avatar right.</div>
+    <div>③ <strong>Top row:</strong> 2-col. Greeting card left (wider). Practice card right (dark, locked design).</div>
+    <div>④ <strong>Greeting card:</strong> Tutor photo + name + personalised message + lesson tip preview + 2 CTAs.</div>
+    <div>⑤ <strong>Continue card:</strong> Cedar border. Current lesson, progress bar, time remaining. Dominant below fold.</div>
+    <div>⑥ <strong>Up next:</strong> 3 lesson cards. Thumbnail, module label, title, duration + level.</div>
+  </div>
+</div>
+
+</body>
+</html>

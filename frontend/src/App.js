@@ -1,19 +1,23 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
+import Onboarding from './components/Onboarding';
 
 function App() {
-  const [status, setStatus] = useState('Connecting...');
+  const [user, setUser] = useState(null);
 
-  useEffect(() => {
-    fetch('http://localhost:3001')
-      .then(res => res.json())
-      .then(data => setStatus(data.message))
-      .catch(() => setStatus('Could not connect to backend'));
-  }, []);
+  const handleOnboardingComplete = (selections) => {
+    setUser(selections);
+  };
+
+  if (!user) {
+    return <Onboarding onComplete={handleOnboardingComplete} />;
+  }
 
   return (
     <div>
       <h1>AI Guitar Tutor</h1>
-      <p>Backend status: {status}</p>
+      <p>Language: {user.language}</p>
+      <p>Guitar: {user.guitarType}</p>
+      <p>Level: {user.level}</p>
     </div>
   );
 }
