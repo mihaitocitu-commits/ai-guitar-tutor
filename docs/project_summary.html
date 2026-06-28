@@ -1,0 +1,465 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>StringAI — Project Summary</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500&family=DM+Serif+Display:ital@0;1&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --white: #fff;
+    --cedar: #c88146;
+    --rosewood: #6B3A20;
+    --walnut: #38241a;
+    --maple: #D9BC97;
+    --ebony: #1A0F08;
+    --border: #E6DDD4;
+    --surface: #F7F4EF;
+    --good: #6A9E6A;
+    --warn: #BF9A4A;
+    --alert: #A96858;
+  }
+  body {
+    background: var(--white);
+    font-family: "DM Sans", sans-serif;
+    color: var(--ebony);
+    -webkit-font-smoothing: antialiased;
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 56px 48px 96px;
+  }
+
+  /* ── HEADER ── */
+  .header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    margin-bottom: 52px;
+    padding-bottom: 24px;
+    border-bottom: 1px solid var(--border);
+  }
+  .logo { font-family: "DM Serif Display", serif; font-size: 30px; color: var(--walnut); }
+  .logo em { font-style: italic; color: var(--cedar); }
+  .logo-sub { font-size: 12px; color: #aaa; font-weight: 300; margin-top: 5px; }
+  .header-meta { text-align: right; }
+  .meta-label { font-size: 9px; font-weight: 500; color: var(--cedar); text-transform: uppercase; letter-spacing: 1px; margin-bottom: 5px; }
+  .meta-value { font-size: 12px; color: #aaa; font-weight: 300; line-height: 1.7; }
+
+  /* ── SECTION ── */
+  .section { margin-bottom: 44px; }
+  .section-label {
+    font-size: 9px; font-weight: 500; color: var(--cedar);
+    text-transform: uppercase; letter-spacing: 1px;
+    margin-bottom: 16px;
+    display: flex; align-items: center; gap: 10px;
+  }
+  .section-label::after { content: ""; flex: 1; height: 1px; background: var(--border); }
+
+  /* ── PRODUCT ── */
+  .product-desc {
+    font-family: "DM Serif Display", serif;
+    font-size: 22px; color: var(--walnut);
+    line-height: 1.4; margin-bottom: 10px;
+  }
+  .product-desc em { font-style: italic; color: var(--cedar); }
+  .product-sub { font-size: 13px; color: #777; font-weight: 300; line-height: 1.75; margin-bottom: 18px; }
+  .axis-row { display: flex; gap: 8px; flex-wrap: wrap; }
+  .axis-pill {
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 10px 14px; flex: 1; min-width: 180px;
+  }
+  .axis-name { font-size: 10px; font-weight: 500; color: var(--cedar); text-transform: uppercase; letter-spacing: 0.6px; margin-bottom: 4px; }
+  .axis-values { font-size: 12px; color: var(--walnut); font-weight: 300; }
+
+  /* ── RESEARCH ── */
+  .research-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 16px; }
+  .research-card {
+    border: 1px solid var(--border); border-radius: 4px;
+    padding: 14px 16px;
+  }
+  .research-name { font-size: 12px; font-weight: 500; color: var(--walnut); margin-bottom: 4px; }
+  .research-desc { font-size: 11px; color: #888; font-weight: 300; line-height: 1.55; }
+  .insight-list { display: flex; flex-direction: column; gap: 6px; }
+  .insight {
+    display: flex; gap: 12px; align-items: flex-start;
+    padding: 10px 14px; border-left: 2px solid var(--cedar);
+    background: var(--surface); border-radius: 0 4px 4px 0;
+  }
+  .insight-text { font-size: 12px; color: #666; font-weight: 300; line-height: 1.55; }
+  .insight-text strong { color: var(--walnut); font-weight: 500; }
+
+  /* ── PERSONAS ── */
+  .personas { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .persona { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 14px 16px; }
+  .persona-name { font-size: 13px; font-weight: 500; color: var(--walnut); margin-bottom: 3px; }
+  .persona-quote { font-family: "DM Serif Display", serif; font-style: italic; font-size: 12px; color: var(--cedar); margin-bottom: 5px; line-height: 1.4; }
+  .persona-desc { font-size: 11px; color: #888; font-weight: 300; line-height: 1.5; }
+
+  /* ── FEATURES ── */
+  .features { display: flex; flex-direction: column; gap: 8px; }
+  .feature {
+    display: flex; gap: 14px; align-items: flex-start;
+    padding: 14px 16px; border: 1px solid var(--border); border-radius: 4px;
+  }
+  .feature.main { border-color: var(--cedar); background: #FDFAF6; }
+  .feature-icon { flex-shrink: 0; margin-top: 1px; }
+  .feature-name { font-size: 13px; font-weight: 500; color: var(--walnut); margin-bottom: 3px; }
+  .badge {
+    font-size: 9px; font-weight: 500; color: var(--cedar);
+    text-transform: uppercase; letter-spacing: 0.6px;
+    border: 1px solid var(--cedar); border-radius: 4px;
+    padding: 1px 5px; margin-left: 6px; vertical-align: middle;
+  }
+  .feature-desc { font-size: 12px; color: #888; font-weight: 300; line-height: 1.55; }
+  .feature-bullets { margin-top: 8px; display: flex; flex-direction: column; gap: 4px; }
+  .feature-bullet { font-size: 11px; color: #888; font-weight: 300; padding-left: 12px; position: relative; }
+  .feature-bullet::before { content: "—"; position: absolute; left: 0; color: var(--cedar); }
+
+  /* ── DELIVERABLES ── */
+  .deliverables { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .deliverable {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px; border: 1px solid var(--border); border-radius: 4px;
+  }
+  .del-icon { font-size: 14px; flex-shrink: 0; margin-top: 1px; }
+  .del-name { font-size: 12px; color: var(--walnut); font-weight: 500; margin-bottom: 2px; }
+  .del-sub { font-size: 11px; color: #aaa; font-weight: 300; }
+
+  /* ── LINKS ── */
+  .links { display: flex; flex-direction: column; gap: 6px; }
+  .link-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 16px; background: var(--surface);
+    border: 1px solid var(--border); border-radius: 4px;
+  }
+  .link-label { font-size: 12px; font-weight: 500; color: var(--walnut); }
+  .link-url { font-size: 11px; color: var(--cedar); font-weight: 300; text-decoration: none; }
+  .link-url:hover { text-decoration: underline; }
+
+  /* ── WHAT'S NEXT ── */
+  .next-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+  .next-item {
+    display: flex; align-items: flex-start; gap: 10px;
+    padding: 12px 14px; border: 1px solid var(--border); border-radius: 4px;
+    opacity: 0.65;
+  }
+  .next-name { font-size: 12px; color: var(--walnut); font-weight: 500; margin-bottom: 2px; }
+  .next-sub { font-size: 11px; color: #aaa; font-weight: 300; }
+
+  /* ── STACK ── */
+  .stack-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .stack-col-label { font-size: 10px; font-weight: 500; color: var(--walnut); text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 8px; }
+  .stack-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+  .stack-tag { background: var(--surface); border: 1px solid var(--border); border-radius: 4px; padding: 5px 10px; font-size: 11px; color: var(--walnut); }
+
+  /* ── FOOTER ── */
+  .footer {
+    margin-top: 52px; padding-top: 20px;
+    border-top: 1px solid var(--border);
+    display: flex; align-items: center; justify-content: space-between;
+  }
+  .footer-logo { font-family: "DM Serif Display", serif; font-size: 16px; color: var(--walnut); }
+  .footer-logo em { font-style: italic; color: var(--cedar); }
+  .footer-meta { font-size: 11px; color: #bbb; font-weight: 300; }
+</style>
+</head>
+<body>
+
+  <div class="header">
+    <div>
+      <div class="logo">string<em>AI</em></div>
+      <div class="logo-sub">AI Guitar Tutor Platform</div>
+    </div>
+    <div class="header-meta">
+      <div class="meta-label">Project summary</div>
+      <div class="meta-value">UX Design · v2.0<br>June 2026 · Prototype complete</div>
+    </div>
+  </div>
+
+  <!-- WHAT WE'RE BUILDING -->
+  <div class="section">
+    <div class="section-label">What we're building</div>
+    <div class="product-desc">A fully AI-powered guitar tutoring platform that <em>hears</em> you play.</div>
+    <div class="product-sub">Browser-based. No download, no human instructors. The AI listens via the browser microphone and gives real-time feedback on pitch, timing, and chord changes — as you play, not after. Every aspect of the experience adapts continuously across three independent axes.</div>
+    <div class="axis-row">
+      <div class="axis-pill">
+        <div class="axis-name">Guitar skill</div>
+        <div class="axis-values">Beginner · Intermediate · Expert</div>
+      </div>
+      <div class="axis-pill">
+        <div class="axis-name">Language</div>
+        <div class="axis-values">English · Spanish · French</div>
+      </div>
+      <div class="axis-pill">
+        <div class="axis-name">Emotional state</div>
+        <div class="axis-values">Confident · Frustrated · Plateauing · Disengaged</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESEARCH -->
+  <div class="section">
+    <div class="section-label">Research</div>
+    <div class="research-grid">
+      <div class="research-card">
+        <div class="research-name">Competitive analysis</div>
+        <div class="research-desc">5 platforms reviewed: Yousician, Fender Play, JustinGuitar, TrueFire, ArtistWorks. Assessed across 6 dimensions. No platform combines real-time feedback with multilingual instruction. Emotional adaptation is absent across all five.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-name">Survey · n=10</div>
+        <div class="research-desc">12 questions, 4 sections. Bias review conducted — 5 questions corrected. Key finding: skill-match scores consistently low (2–3/5) across all personas. AI openness highest among beginners, lowest among advanced learners.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-name">Interviews · n=10</div>
+        <div class="research-desc">Semi-structured, 20–30 min each, across all 4 personas. Features never suggested — needs surfaced unprompted. Diego: "Online doesn't have ears." Became the core design principle for Practice Mode.</div>
+      </div>
+      <div class="research-card">
+        <div class="research-name">Feasibility assessment</div>
+        <div class="research-desc">Real-time pitch and timing detection via Web Audio API validated as feasible. Browser-first approach chosen: no app install, no permissions barrier, accessible from any device with a microphone.</div>
+      </div>
+    </div>
+    <div class="insight-list">
+      <div class="insight">
+        <div class="insight-text"><strong>No one can hear them play.</strong> Every platform is one-directional. The most universal and urgent unmet need across all 4 personas.</div>
+      </div>
+      <div class="insight">
+        <div class="insight-text"><strong>Reassurance before evaluation.</strong> Post-session summary must function as guidance first, scores second. Applied across the entire product.</div>
+      </div>
+      <div class="insight">
+        <div class="insight-text"><strong>Tone adaptation works in both directions.</strong> Over-encouragement of advanced players destroys credibility instantly. The system must strip scaffolding as aggressively as it adds warmth.</div>
+      </div>
+      <div class="insight">
+        <div class="insight-text"><strong>Classical guitar and non-European markets are underserved.</strong> Flagged as strategic expansion directions post-MVP.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PERSONAS -->
+  <div class="section">
+    <div class="section-label">Who we're designing for</div>
+    <div class="personas">
+      <div class="persona">
+        <div class="persona-name">The Absolute Beginner</div>
+        <div class="persona-quote">"I feel like I'm learning two things at once."</div>
+        <div class="persona-desc">Never played. Needs structure, zero jargon, and frequent reassurance. Scared of forming bad habits with no one to correct them.</div>
+      </div>
+      <div class="persona">
+        <div class="persona-name">The Lapsed Player</div>
+        <div class="persona-quote">"Tell me where I actually am — not where I say I am."</div>
+        <div class="persona-desc">Played years ago, stopped. Doesn't want to start from scratch. The diagnostic is their entire value proposition.</div>
+      </div>
+      <div class="persona">
+        <div class="persona-name">The Intermediate Grinder</div>
+        <div class="persona-quote">"Online doesn't have ears."</div>
+        <div class="persona-desc">Can play songs but has plateaued. Every session without feedback may be reinforcing bad technique.</div>
+      </div>
+      <div class="persona">
+        <div class="persona-name">The Advanced Learner</div>
+        <div class="persona-quote">"It would have to surprise me."</div>
+        <div class="persona-desc">Near-professional. Low tolerance for generic content. Must be proven before trusted. Needs depth, precision, niche expertise.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN FEATURE -->
+  <div class="section">
+    <div class="section-label">Core features</div>
+    <div class="features">
+
+      <div class="feature main">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#c88146" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="22"/></svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Live Practice <span class="badge">AI-native · Main feature</span></div>
+          <div class="feature-desc">The only surface that could not exist without AI as its foundation. The browser microphone captures your playing in real time. Marcus listens, analyses, and responds — not after you finish, but as each note lands.</div>
+          <div class="feature-bullets">
+            <div class="feature-bullet">Real-time pitch, timing, and chord change tracking via browser microphone</div>
+            <div class="feature-bullet">Two-column live session: Marcus hand video + chord diagrams left, your camera + mini radial arc metrics right</div>
+            <div class="feature-bullet">Marcus adapts: hand closeup when you need to see finger position, portrait when things are going well</div>
+            <div class="feature-bullet">Session closure: modal with scores + "Continue practicing" (resumes) or "Next lesson" (advances)</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38241a" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">AI Tutor</div>
+          <div class="feature-desc">On-demand conversational tutor, available 24/7. Adapts tone, vocabulary, and complexity to your level and emotional state. Aware of session history and inferred state.</div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38241a" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Lesson Player</div>
+          <div class="feature-desc">Structured video curriculum by level and guitar type. Loop sections, slow down to 50/75%, toggle chord diagram overlays. Adapts density and annotation depth by skill level.</div>
+        </div>
+      </div>
+
+      <div class="feature">
+        <div class="feature-icon">
+          <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="#38241a" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/></svg>
+        </div>
+        <div class="feature-body">
+          <div class="feature-name">Progress — Status: <em style="font-style:italic;color:var(--cedar);">Open Mic</em></div>
+          <div class="feature-desc">Level names come from the learner's genre — not numbers. Rock: Garage Band → Open Mic → Bar Band → Studio Ready → Rock Star → Legend. Motivational for beginners, analytical for experts.</div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- DELIVERABLES -->
+  <div class="section">
+    <div class="section-label">Deliverables status</div>
+    <div class="deliverables">
+      <div class="deliverable">
+        <div class="del-icon">✅</div>
+        <div><div class="del-name">Onboarding</div><div class="del-sub">2-step flow · live sidebar population</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">✅</div>
+        <div><div class="del-name">Homepage — first visit</div><div class="del-sub">Marcus portrait · first lesson · practice teaser</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">✅</div>
+        <div><div class="del-name">Live Practice (AI-native)</div><div class="del-sub">Tuning · playing · closure · all linked</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">✅</div>
+        <div><div class="del-name">Progress / Status</div><div class="del-sub">Level hero · tier track · skill bars · streak</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">✅</div>
+        <div><div class="del-name">Research</div><div class="del-sub">Comp analysis · survey · interviews · feasibility</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">✅</div>
+        <div><div class="del-name">Design system</div><div class="del-sub">Tonewood tokens · DM Serif + DM Sans · Lucide icons</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">🔲</div>
+        <div><div class="del-name">Lesson Player</div><div class="del-sub">Beginner + Expert variants required</div></div>
+      </div>
+      <div class="deliverable">
+        <div class="del-icon">🔲</div>
+        <div><div class="del-name">AI Tutor interface</div><div class="del-sub">Text-first MVP · voice post-MVP</div></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- PROTOTYPE LINKS -->
+  <div class="section">
+    <div class="section-label">Prototype links</div>
+    <div class="links">
+      <div class="link-row">
+        <div class="link-label">Onboarding</div>
+        <a class="link-url" href="../design/prototypes/onboarding_complete.html">onboarding_complete.html</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Homepage — first visit</div>
+        <a class="link-url" href="../design/prototypes/homepage_first_visit.html">homepage_first_visit.html</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Live Practice (AI-native)</div>
+        <a class="link-url" href="../design/prototypes/practice_mode_ai_native.html">practice_mode_ai_native.html</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Progress / Status</div>
+        <a class="link-url" href="../design/prototypes/progress.html">progress.html</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESOURCES -->
+  <div class="section">
+    <div class="section-label">Resources</div>
+    <div class="links">
+      <div class="link-row">
+        <div class="link-label">Full project documentation</div>
+        <a class="link-url" href="https://www.notion.so/38d8bad61bbd81eb9feec8277dca4568" target="_blank">Notion — Full Project Documentation</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">UX deliverables</div>
+        <a class="link-url" href="https://www.notion.so/3708bad61bbd81929f1ff288a0cc409b" target="_blank">Notion — UX Deliverables</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Product specification</div>
+        <a class="link-url" href="ai_guitar_tutor_spec.md">ai_guitar_tutor_spec.md</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Design specifications</div>
+        <a class="link-url" href="design.md">design.md</a>
+      </div>
+      <div class="link-row">
+        <div class="link-label">Marcus onboarding script</div>
+        <a class="link-url" href="marcus_onboarding_script.md">marcus_onboarding_script.md</a>
+      </div>
+    </div>
+  </div>
+
+  <!-- STACK -->
+  <div class="section">
+    <div class="section-label">Stack and tools</div>
+    <div class="stack-cols">
+      <div>
+        <div class="stack-col-label">Frontend / Design</div>
+        <div class="stack-tags">
+          <div class="stack-tag">HTML prototypes</div>
+          <div class="stack-tag">React (target)</div>
+          <div class="stack-tag">DM Serif Display</div>
+          <div class="stack-tag">DM Sans</div>
+          <div class="stack-tag">Lucide icons</div>
+        </div>
+      </div>
+      <div>
+        <div class="stack-col-label">Engineering</div>
+        <div class="stack-tags">
+          <div class="stack-tag">Node.js backend</div>
+          <div class="stack-tag">Web Audio API</div>
+          <div class="stack-tag">LLM-powered tutor</div>
+          <div class="stack-tag">GitHub Pages</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- WHAT'S NEXT -->
+  <div class="section">
+    <div class="section-label">What's next</div>
+    <div class="next-grid">
+      <div class="next-item">
+        <div><div class="next-name">Lesson Player</div><div class="next-sub">Beginner and Expert variants</div></div>
+      </div>
+      <div class="next-item">
+        <div><div class="next-name">AI Tutor chat interface</div><div class="next-sub">Text-first for MVP</div></div>
+      </div>
+      <div class="next-item">
+        <div><div class="next-name">React implementation</div><div class="next-sub">Translate HTML prototypes</div></div>
+      </div>
+      <div class="next-item">
+        <div><div class="next-name">Six tutor personas</div><div class="next-sub">Inclusion review required</div></div>
+      </div>
+      <div class="next-item">
+        <div><div class="next-name">Multilingual content</div><div class="next-sub">ES + FR as first-class languages</div></div>
+      </div>
+      <div class="next-item">
+        <div><div class="next-name">Classical + non-EU markets</div><div class="next-sub">Strategic expansion post-MVP</div></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer">
+    <div class="footer-logo">string<em>AI</em></div>
+    <div class="footer-meta">Prepared by Mihai Tocitu · June 2026 · For internal review</div>
+  </div>
+
+</body>
+</html>
